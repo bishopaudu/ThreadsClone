@@ -5,19 +5,30 @@ import { StyleSheet, useColorScheme } from 'react-native';
 import {Ionicons,Feather,AntDesign,FontAwesome} from '@expo/vector-icons'
 import {MaterialIcons} from '@expo/vector-icons'
 import { timeAgo } from '../utils/timeAgo';
+import { Image } from 'expo-image';
+import { blurhash } from '../utils/imagePlacdholder';
 
 
 export default function ThreadsItem(thread:Thread):JSX.Element {
 
-    return <View>
-        <Text>{thread.author.username}</Text>
-        <View>
+    return <View style={styles.container}>
+        <PostLeftSide {...thread}/>
+        <View style={{gap:6,flexShrink:1}}>
             <PostHeading 
             name={thread.author.name}
             createdAt={thread.createdAt}
             verified={thread.author.verified}
             />
             <Text>{thread.content}</Text>
+            {thread.image && (
+                <Image
+                source={thread.image}
+                style={{width:'100%',minHeight:300,borderRadius:10}}
+                placeholder={blurhash}
+                contentFit='cover'
+                transition={200}
+                />
+            )}
             <ButtomIcons/>
             <PostFooter 
             replies={thread.repliesCount}
@@ -70,6 +81,50 @@ function ButtomIcons() {
             <Ionicons name='chatbubble-outline' size={iconSize} color={iconsColor} />
             <AntDesign name='retweet' size={iconSize} color={iconsColor}/>
             <Feather name='send' size={iconSize} color={iconsColor}/>
+        </View>
+    )
+}
+
+function PostLeftSide(thread:Thread) {
+    const currentTheme = useColorScheme()
+    const borderColor = currentTheme === 'light' ? '#00000020' : '#ffffff20'
+    return (
+        <View style={{justifyContent:'space-between'}}>
+            <Image
+            source={thread.author.photo}
+            style={styles.Image}
+            placeholder={blurhash}
+            contentFit='cover'
+            transition={200}
+            />
+            <View 
+            style={{borderWidth:1,
+            alignSelf:'center',
+            borderColor:borderColor,
+            flexGrow:1
+            }}>
+            <View
+            style={{
+                width:20,
+                alignItems:'center',
+                alignSelf:'center',
+                gap:3
+            }}>
+                {[1,2,3].map((index) => (
+                    <Image
+                    key={index}
+                    //@ts-ignore
+                    source={thread.replies[inex-1]?.author.photo}
+                    style={{width:index*9,height:index*9,borderRadius:15}}
+                    placeholder={blurhash}
+                    contentFit='cover'
+                    transition={200}
+
+                    />
+                ))}
+            </View>    
+            </View>
+
         </View>
     )
 }
