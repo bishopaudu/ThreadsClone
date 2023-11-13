@@ -102,7 +102,7 @@ function PostLeftSide(thread:Thread) {
             alignSelf:'center',
             borderColor:borderColor,
             flexGrow:1
-            }}>
+            }}/>
             <View
             style={{
                 width:20,
@@ -114,15 +114,14 @@ function PostLeftSide(thread:Thread) {
                     <Image
                     key={index}
                     //@ts-ignore
-                    source={thread.replies[inex-1]?.author.photo}
+                    source={thread.replies[index-1]?.author.photo}
                     style={{width:index*9,height:index*9,borderRadius:15}}
                     placeholder={blurhash}
                     contentFit='cover'
                     transition={200}
 
                     />
-                ))}
-            </View>    
+                ))}   
             </View>
 
         </View>

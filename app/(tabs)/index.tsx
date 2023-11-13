@@ -3,8 +3,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Lottie from 'lottie-react-native'
 import * as React from 'react'
 
-import EditScreenInfo from '../../components/EditScreenInfo';
-import { Text, View } from '../../components/Themed';
+
 import { RefreshControl } from 'react-native-gesture-handler';
 import { useRef } from 'react';
 import { ThreadsContext } from '../../context/threadContext';
@@ -17,7 +16,7 @@ export default function TabOneScreen() {
   <SafeAreaView>
     <ScrollView contentContainerStyle={{
       paddingHorizontal:10,
-      paddingTop:Platform.select({android:30})
+      paddingTop:Platform.select({android:20})
     }}
     refreshControl={<RefreshControl 
       onRefresh={() => {
